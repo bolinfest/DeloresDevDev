@@ -1,34 +1,50 @@
 {
-    "name": "delores-dev-dev",
-    "displayName": "DeloresDevDev",
-    "description": "Tools for https://github.com/grumpygamer/DeloresDev",
-    "version": "0.0.1",
-    "engines": {
-        "vscode": "^1.66.0"
-    },
-    "categories": [
-        "Programming Languages"
+  "name": "delores-dev-dev",
+  "displayName": "DeloresDevDev",
+  "description": "Tools for https://github.com/grumpygamer/DeloresDev",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.66.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "dinky",
+        "aliases": [
+          "Dinky",
+          "dinky"
+        ],
+        "extensions": [
+          ".dinky"
+        ],
+        "configuration": "./dinky-language-configuration.json"
+      },
+      {
+        "id": "yack",
+        "aliases": [
+          "Yack",
+          "yack"
+        ],
+        "extensions": [
+          ".yack"
+        ],
+        "configuration": "./yack-language-configuration.json"
+      }
     ],
-    "contributes": {
-        "languages": [{
-            "id": "dinky",
-            "aliases": ["Dinky", "dinky"],
-            "extensions": [".dinky"],
-            "configuration": "./dinky-language-configuration.json"
-        }, {
-            "id": "yack",
-            "aliases": ["Yack", "yack"],
-            "extensions": [".yack"],
-            "configuration": "./yack-language-configuration.json"
-        }],
-        "grammars": [{
-            "language": "dinky",
-            "scopeName": "source.dinky",
-            "path": "./syntaxes/dinky.tmLanguage.json"
-        }, {
-            "language": "yack",
-            "scopeName": "source.yack",
-            "path": "./syntaxes/yack.tmLanguage.json"
-        }]
-    }
+    "grammars": [
+      {
+        "language": "dinky",
+        "scopeName": "source.dinky",
+        "path": "./syntaxes/dinky.tmLanguage.json"
+      },
+      {
+        "language": "yack",
+        "scopeName": "source.yack",
+        "path": "./syntaxes/yack.tmLanguage.json"
+      }
+    ]
+  }
 }
