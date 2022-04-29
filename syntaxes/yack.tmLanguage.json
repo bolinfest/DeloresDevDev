@@ -19,6 +19,21 @@
     },
     {
       "include": "#actor-line"
+    },
+    {
+      "include": "#choice"
+    },
+    {
+      "include": "#func-call"
+    },
+    {
+      "include": "#dinky"
+    },
+    {
+      "include": "#condition"
+    },
+    {
+      "include": "#builtins"
     }
   ],
   "repository": {
@@ -61,23 +76,55 @@
     },
     "actor-line": {
       "comment": "line spoken by actor",
-      "match": "^\\s*([a-z][a-zA-Z]+)(:)",
+      "match": "^\\s*(\\w+):",
       "captures": {
         "1": {
-          "name": "entity.name.type"
-        },
-        "2": {
-          "name": "punctuation.definition.tag"
+          "patterns": [{ "include": "#actor-name" }]
         }
       }
     },
+    "actor-name": {
+      "name": "entity.name.type",
+      "match": "[a-z][a-zA-Z]+"
+    },
+    "choice": {
+      "comment": "start of a choice in a dialog tree",
+      "match": "^([1-9][0-9]*) ",
+      "name": "keyword.control"
+    },
+    "literal": {
+      "patterns": [
+        { "include": "#strings" },
+        { "include": "#integer" },
+        { "include": "#positive-float" }
+      ]
+    },
+    "dinky": {
+      "comment": "Block of Dinky code: not supported yet.",
+      "begin": "\\{",
+      "end": "\\}",
+      "patterns": [{ "include": "#literal" }]
+    },
+    "func-call": {
+      "begin": "([a-zA-Z_][a-zA-Z0-9_]*)\\(",
+      "end": "\\)",
+      "beginCaptures": {
+        "1": {
+          "name": "entity.name.function"
+        }
+      },
+      "patterns": [{ "include": "#literal" }, { "include": "$self" }]
+    },
     "comment": {
-      "match": "//(.*)",
-      "name": "comment.line"
+      "patterns": [
+        { "match": "//(.*)$", "name": "comment.line" },
+        { "match": "^##(.*)$", "name": "comment.line" }
+      ]
     },
     "condition": {
-      "begin": "[",
-      "end": "]",
+      "comment": "Condition that can be a literal such as '[once]' or contain Dinky code",
+      "begin": "\\[",
+      "end": "\\]",
       "beginCaptures": {
         "0": {
           "name": "punctuation.condition.begin"
@@ -87,7 +134,8 @@
         "0": {
           "name": "punctuation.condition.end"
         }
-      }
+      },
+      "patterns": [{ "include": "#literal" }]
     },
     "strings": {
       "name": "string.quoted.double.yack",
@@ -100,13 +148,64 @@
         }
       ]
     },
-    "constants": {
+    "integer": {
       "patterns": [
         {
-          "name": "constant.numeric.yack",
-          "match": "\\b[1-9][0-9]+\\b"
+          "comment": "integer without a leading 0",
+          "match": "\\b[1-9][0-9]*(?!\\.)\\b",
+          "name": "constant.numeric.yack"
+        },
+        {
+          "comment": "integer that is just 0",
+          "match": "\\b0(?!\\.)\\b",
+          "name": "constant.numeric.yack"
         }
       ]
+    },
+    "positive-float": {
+      "comment": "admittedly, this is a weak regex for a float, but it supports what we see in practice in .yack files",
+      "name": "constant.numeric.yack",
+      "match": "\\b[0-9]+\\.[0-9]+\\b"
+    },
+    "builtins": {
+      "comment": "built-in macros that do not follow Dinky-style calling conventions",
+      "patterns": [
+        { "include": "#parrot-builtin" },
+        { "include": "#pause-builtin" },
+        { "include": "#waitfor-builtin" }
+      ]
+    },
+    "parrot-builtin": {
+      "match": "^\\s*(parrot)\\s+(YES|NO)$",
+      "captures": {
+        "1": {
+          "name": "entity.name.operator"
+        },
+        "2": {
+          "name": "constant.language.boolean"
+        }
+      }
+    },
+    "pause-builtin": {
+      "begin": "^\\s*(pause) ",
+      "end": "$",
+      "beginCaptures": {
+        "1": {
+          "name": "entity.name.operator"
+        }
+      },
+      "patterns": [{ "include": "#positive-float" }]
+    },
+    "waitfor-builtin": {
+      "match": "^\\s*(waitfor) (\\w+)$",
+      "captures": {
+        "1": {
+          "name": "entity.name.operator"
+        },
+        "2": {
+          "patterns": [{ "include": "#actor-name" }]
+        }
+      }
     }
   },
   "scopeName": "source.yack"
