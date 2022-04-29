@@ -1,0 +1,25 @@
+{
+    "name": "delores-dev-dev",
+    "displayName": "DeloresDevDev",
+    "description": "Tools for https://github.com/grumpygamer/DeloresDev",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.66.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "dinky",
+            "aliases": ["Dinky", "dinky"],
+            "extensions": [".dinky"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "dinky",
+            "scopeName": "source.dinky",
+            "path": "./syntaxes/dinky.tmLanguage.json"
+        }]
+    }
+}
