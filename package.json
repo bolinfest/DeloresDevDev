@@ -14,12 +14,21 @@
             "id": "dinky",
             "aliases": ["Dinky", "dinky"],
             "extensions": [".dinky"],
-            "configuration": "./language-configuration.json"
+            "configuration": "./dinky-language-configuration.json"
+        }, {
+            "id": "yack",
+            "aliases": ["Yack", "yack"],
+            "extensions": [".yack"],
+            "configuration": "./yack-language-configuration.json"
         }],
         "grammars": [{
             "language": "dinky",
             "scopeName": "source.dinky",
             "path": "./syntaxes/dinky.tmLanguage.json"
+        }, {
+            "language": "yack",
+            "scopeName": "source.yack",
+            "path": "./syntaxes/yack.tmLanguage.json"
         }]
     }
 }
