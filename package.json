@@ -5,6 +5,8 @@
   "author": {
     "name": "Michael Bolin"
   },
+  "publisher": "bolinfest",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/bolinfest/DeloresDevDev"
