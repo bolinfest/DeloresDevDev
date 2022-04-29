@@ -7,6 +7,18 @@
     },
     {
       "include": "#strings"
+    },
+    {
+      "include": "#knot"
+    },
+    {
+      "include": "#divert"
+    },
+    {
+      "include": "#comment"
+    },
+    {
+      "include": "#actor-line"
     }
   ],
   "repository": {
@@ -14,9 +26,68 @@
       "patterns": [
         {
           "name": "keyword.control.yack",
-          "match": "\\b(if|while|for|return)\\b"
+          "match": "\\b(if|else|endif)\\b"
         }
       ]
+    },
+    "knot": {
+      "comment": "ink-style knot: https://www.inklestudios.com/ink/",
+      "begin": "^={2,}",
+      "end": "={2,}",
+      "beginCaptures": {
+        "0": { "name": "entity.name.variable" }
+      },
+      "endCaptures": {
+        "0": { "name": "entity.name.variable" }
+      },
+      "patterns": [{ "include": "#knot_name" }]
+    },
+    "knot_name": {
+      "comment": "valid name for a knot (can start with a number)",
+      "match": "[a-zA-Z0-9_]+",
+      "name": "entity.name.tag"
+    },
+    "divert": {
+      "comment": "single-line instruction to jump to a knot",
+      "match": "(->) (\\w+)\\b",
+      "captures": {
+        "1": {
+          "name": "keyword.control.divert"
+        },
+        "2": {
+          "patterns": [{ "include": "#knot_name" }]
+        }
+      }
+    },
+    "actor-line": {
+      "comment": "line spoken by actor",
+      "match": "^\\s*([a-z][a-zA-Z]+)(:)",
+      "captures": {
+        "1": {
+          "name": "entity.name.type"
+        },
+        "2": {
+          "name": "punctuation.definition.tag"
+        }
+      }
+    },
+    "comment": {
+      "match": "//(.*)",
+      "name": "comment.line"
+    },
+    "condition": {
+      "begin": "[",
+      "end": "]",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.condition.begin"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.condition.end"
+        }
+      }
     },
     "strings": {
       "name": "string.quoted.double.yack",
@@ -26,6 +97,14 @@
         {
           "name": "constant.character.escape.yack",
           "match": "\\\\."
+        }
+      ]
+    },
+    "constants": {
+      "patterns": [
+        {
+          "name": "constant.numeric.yack",
+          "match": "\\b[1-9][0-9]+\\b"
         }
       ]
     }
