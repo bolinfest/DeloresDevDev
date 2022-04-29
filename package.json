@@ -20,7 +20,7 @@
         "extensions": [
           ".dinky"
         ],
-        "configuration": "./dinky-language-configuration.json"
+        "configuration": "./syntaxes/dinky-language-configuration.json"
       },
       {
         "id": "yack",
@@ -31,7 +31,7 @@
         "extensions": [
           ".yack"
         ],
-        "configuration": "./yack-language-configuration.json"
+        "configuration": "./syntaxes/yack-language-configuration.json"
       }
     ],
     "grammars": [
