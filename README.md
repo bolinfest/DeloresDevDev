@@ -23,6 +23,23 @@ highlighted as shown here:
 
 ![`Natalie.yack` syntax highlighted using DeloresDevDev](./docs/vscodeweb.png)
 
+## Feature: Jump to definition
+
+When you see a "divert" like:
+
+```
+-> main
+```
+
+you can `ctrl+click` or `cmd+click` on the target, `main`, and it will take
+you to the "knot", `=== main ===`. This means that "peek" also works, so if
+you hold down `ctrl`/`cmd` while the pointer is over the divert, a hover will
+appear, showing you the code at the destination:
+
+![hovering over `-> supplies` shows the corresponding knot](./docs/peek.png)
+
+## Future Work
+
 Note that `.dinky` files are not supported yet, nor is there any
 sort of LSP-like support, though creating a
 [Tree-sitter](https://tree-sitter.github.io/tree-sitter/) grammar
